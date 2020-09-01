@@ -17,7 +17,7 @@ namespace Lightspeed.Client
 
             GameClient.instance.udp.Connect(((IPEndPoint)GameClient.instance.tcp.socket.Client.LocalEndPoint).Port);
 
-            GameManager.instance.JoinGame();
+            ClientGameManager.instance.JoinGame();
         }
 
         public static void SpawnPlayer(Packet _packet)
@@ -27,15 +27,15 @@ namespace Lightspeed.Client
             var _position = _packet.ReadVector3();
             var _rotation = _packet.ReadQuaternion();
 
-            GameManager.instance.SpawnPlayer(_netId, _username, _position, _rotation);
+            ClientGameManager.instance.SpawnPlayer(_netId, _username, _position, _rotation);
         }
 
         public static void PlayerDisconnected(Packet _packet)
         {
             var _id = _packet.ReadInt();
 
-            Destroy(GameManager.Players[_id].gameObject);
-            GameManager.Players.Remove(_id);
+            Destroy(ClientGameManager.Players[_id].gameObject);
+            ClientGameManager.Players.Remove(_id);
         }
     }
 }

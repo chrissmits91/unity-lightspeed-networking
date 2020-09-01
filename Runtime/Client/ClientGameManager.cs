@@ -5,9 +5,9 @@ using Lightspeed.Shared;
 
 namespace Lightspeed.Client
 {
-    public class GameManager : MonoBehaviour
+    public class ClientGameManager : MonoBehaviour
     {
-        public static GameManager instance;
+        public static ClientGameManager instance;
 
         public static readonly Dictionary<int, PlayerEntity> Players = new Dictionary<int, PlayerEntity>();
 
