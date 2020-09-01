@@ -29,6 +29,9 @@ namespace Lightspeed.Client
         public delegate void ClientStartedDelegate();
         public event ClientStartedDelegate EventClientStarted;
 
+        public delegate void ConnectionTimeoutDelegate(string _message);
+        public event ConnectionTimeoutDelegate EventConnectionTimedOut;
+
         private void Awake()
         {
             DontDestroyOnLoad(transform.gameObject);
@@ -83,8 +86,6 @@ namespace Lightspeed.Client
 
                 receiveBuffer = new byte[DataBufferSize];
                 socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
-
-                instance.EventClientStarted?.Invoke();
             }
 
             private void ConnectCallback(IAsyncResult _result)
@@ -95,6 +96,7 @@ namespace Lightspeed.Client
                 }
                 catch (Exception _ex)
                 {
+                    EventConnectionTimedOut?.Invoke(_ex.Message);
                     Debug.Log(_ex.Message);
                 }
 
@@ -108,6 +110,8 @@ namespace Lightspeed.Client
                 receivedData = new Packet();
 
                 stream.BeginRead(receiveBuffer, 0, DataBufferSize, ReceiveCallback, null);
+
+                instance.EventClientStarted?.Invoke();
             }
 
             public void SendData(Packet _packet)
