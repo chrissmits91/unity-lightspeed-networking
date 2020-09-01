@@ -96,7 +96,7 @@ namespace Lightspeed.Client
                 }
                 catch (Exception _ex)
                 {
-                    EventConnectionTimedOut?.Invoke(_ex.Message);
+                    instance.EventConnectionTimedOut?.Invoke(_ex.Message);
                     Debug.Log(_ex.Message);
                 }
 

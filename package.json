@@ -1,6 +1,6 @@
 {
     "name": "com.wildfire-entertainment.lightspeed",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "displayName": "Lightspeed",
     "description": "Unity networking at lightspeed",
     "unity": "2019.4",
